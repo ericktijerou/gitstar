@@ -3,20 +3,20 @@ plugins {
     kotlin(Plugins.kotlinAndroid)
     id(Plugins.daggerHilt)
     id(Plugins.ktLint)
-    id(Plugins.apollo).version("2.5.3")
+    id(Plugins.apollo).version(Versions.apollo)
     kotlin(Plugins.kotlinKapt)
 }
 
 android {
-    compileSdkVersion(30)
-    buildToolsVersion("30.0.3")
+    compileSdkVersion(Configs.compileSdkVersion)
+    buildToolsVersion(Configs.buildToolsVersion)
 
     defaultConfig {
-        applicationId = "com.ericktijerou.gitstar"
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Configs.applicationId
+        minSdkVersion(Configs.minSdkVersion)
+        targetSdkVersion(Configs.targetSdkVersion)
+        versionCode = Configs.versionCode
+        versionName = Configs.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         javaCompileOptions {
             annotationProcessorOptions {
@@ -51,7 +51,6 @@ android {
             isMinifyEnabled = true
             isShrinkResources = true
             isDebuggable = false
-            isZipAlignEnabled = true
             proguardFile(getDefaultProguardFile("proguard-android.txt"))
             proguardFile(file("proguard-rules.pro"))
 
@@ -69,7 +68,7 @@ android {
     }
 
     packagingOptions {
-        exclude("META-INF/*.kotlin_module")
+        resources.excludes.add("META-INF/*.kotlin_module")
     }
 
     kotlinOptions {
@@ -89,7 +88,6 @@ android {
 
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.compose
-        kotlinCompilerVersion = Versions.kotlin
     }
 }
 
@@ -103,16 +101,44 @@ apollo {
 }
 
 dependencies {
+    // Kotlin
+    implementation(Libs.Kotlin.stdLib)
+
+    // Android
     implementation(Libs.Android.coreKtx)
     implementation(Libs.Android.appcompat)
     implementation(Libs.Android.materialDesign)
+
+    // Coroutines
+    implementation(Libs.Coroutines.core)
+    implementation(Libs.Coroutines.android)
+
+    // Compose
     implementation(Libs.Compose.ui)
     implementation(Libs.Compose.material)
     implementation(Libs.Compose.tooling)
+
+    // Architecture Components
     implementation(Libs.Lifecycle.viewModel)
     implementation(Libs.Lifecycle.liveData)
+    implementation(Libs.Room.runtime)
+    implementation(Libs.Room.ktx)
+    implementation(Libs.Paging.runtime)
+    kapt(Libs.Room.compiler)
+
+    // Hilt + Dagger
     implementation(Libs.Dagger.hiltAndroid)
     implementation(Libs.Dagger.hiltViewModel)
     kapt(Libs.Dagger.daggerCompiler)
     kapt(Libs.Dagger.hiltCompiler)
+
+    // Coil-kt
+    implementation(Libs.Coil.coil)
+
+    // Apollo
+    implementation(Libs.Apollo.apollo)
+    implementation(Libs.Apollo.apolloCoroutines)
+
+    // OkHttp
+    implementation(Libs.OkHttp.okHttpInterceptor)
 }

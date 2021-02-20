@@ -12,7 +12,8 @@ object Libs {
     object Dagger {
         const val daggerCompiler = "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
         const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.daggerHiltAndroid}"
-        const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroid}"
+        const val hiltViewModel =
+            "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroid}"
         const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
     }
 
@@ -25,20 +26,48 @@ object Libs {
         const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
     }
 
+    object Room {
+        const val compiler = "androidx.room:room-compiler:${Versions.room}"
+        const val ktx = "androidx.room:room-ktx:${Versions.room}"
+        const val runtime = "androidx.room:room-runtime:${Versions.room}"
+    }
+
     object Compose {
         const val composeRunTime = "androidx.compose.runtime:runtime:${Versions.compose}"
         const val ui = "androidx.compose.ui:ui:${Versions.compose}"
         const val tooling = "androidx.compose.ui:ui-tooling:${Versions.compose}"
         const val composeFoundation = "androidx.compose.foundation:foundation:${Versions.compose}"
-        const val composeLayout = "androidx.compose.foundation:foundation-layout:${Versions.compose}"
+        const val composeLayout =
+            "androidx.compose.foundation:foundation-layout:${Versions.compose}"
         const val material = "androidx.compose.material:material:${Versions.compose}"
         const val composeIcons = "androidx.compose.material:material-icons-core:${Versions.compose}"
         const val composeIconsExtended =
             "androidx.compose.material:material-icons-extended:${Versions.compose}"
         const val composeUiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
         const val composeLifecycle = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
-        const val composeNavigation = "androidx.navigation:navigation-compose:${Versions.composeNav}"
+        const val composeNavigation =
+            "androidx.navigation:navigation-compose:${Versions.composeNav}"
         const val composePaging = "androidx.paging:paging-compose:${Versions.composePaging}"
+    }
+
+    object Apollo {
+        const val apollo = "com.apollographql.apollo:apollo-runtime:${Versions.apollo}"
+        const val apolloCoroutines =
+            "com.apollographql.apollo:apollo-coroutines-support:${Versions.apollo}"
+    }
+
+    object Paging {
+        const val runtime = "androidx.paging:paging-runtime:${Versions.paging}"
+    }
+
+    object OkHttp {
+        const val okHttpInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
+    }
+
+    object Coroutines {
+        const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+        const val android =
+            "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     }
 }
 
@@ -58,29 +87,33 @@ object Plugins {
     const val kotlinKapt = "kapt"
 }
 
+object Configs {
+    const val applicationId = "com.ericktijerou.gitstar"
+    const val buildToolsVersion = "30.0.3"
+    const val compileSdkVersion = 30
+    const val minSdkVersion = 21
+    const val targetSdkVersion = 30
+    const val versionCode = 1
+    const val versionName = "1.0.0"
+}
+
 object Versions {
     internal const val appcompat = "1.2.0"
-    internal const val constraintLayout = "2.0.4"
     internal const val gradle = "7.0.0-alpha07"
     internal const val daggerHilt = "2.31-alpha"
     internal const val daggerHiltAndroid = "1.0.0-alpha02"
-    const val kotlin = "1.4.30"
     internal const val coroutines = "1.4.2"
     internal const val materialDesign = "1.3.0"
     internal const val ktLint = "9.2.1"
     internal const val coreKtx = "1.3.2"
-    internal const val activityKtx = "1.1.0"
     internal const val coil = "1.1.1"
     internal const val lifecycle = "2.3.0"
-    internal const val moshi = "1.11.0"
     internal const val room = "2.3.0-beta01"
     internal const val okhttp = "4.9.1"
-    internal const val apollo = "2.5.3"
     internal const val paging = "3.0.0-alpha13"
-    internal const val navigation = "2.3.3"
-    internal const val refreshLayout = "1.1.0"
-    internal const val viewPager2 = "1.0.0"
-    const val compose = "1.0.0-alpha12"
     internal const val composeNav = "1.0.0-alpha06"
     internal const val composePaging = "1.0.0-alpha07"
+    const val kotlin = "1.4.30"
+    const val apollo = "2.5.3"
+    const val compose = "1.0.0-alpha12"
 }
