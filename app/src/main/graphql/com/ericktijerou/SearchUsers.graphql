@@ -1,0 +1,32 @@
+query SearchUsers($size: Int!, $cursor: String, $queryString:String!) {
+    search(first: $size, after:$cursor, query: $queryString, type: USER) {
+        pageInfo {
+            endCursor
+            hasNextPage
+        }
+        nodes {
+            ... on User {
+                id
+                name
+                login
+                url
+                avatarUrl
+                bio
+                createdAt
+                company
+                followers {
+                  totalCount
+                }
+                repositories(first: 100) {
+                  nodes {
+                    stargazerCount
+                    primaryLanguage {
+                      color
+                      name
+                    }
+                  }
+                }
+            }
+        }
+    }
+}

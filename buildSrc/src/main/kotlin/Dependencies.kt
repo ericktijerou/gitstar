@@ -76,6 +76,7 @@ object ClassPaths {
     const val kotlinPlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
     const val daggerPlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.daggerHilt}"
     const val ktLintPlugin = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
+    const val apolloPlugin = "com.apollographql.apollo:apollo-gradle-plugin:${Versions.apollo}"
 }
 
 object Plugins {

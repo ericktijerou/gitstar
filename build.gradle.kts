@@ -11,6 +11,7 @@ buildscript {
         classpath(ClassPaths.kotlinPlugin)
         classpath(ClassPaths.daggerPlugin)
         classpath(ClassPaths.ktLintPlugin)
+        classpath(ClassPaths.apolloPlugin)
     }
 }
 

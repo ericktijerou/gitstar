@@ -3,7 +3,7 @@ plugins {
     kotlin(Plugins.kotlinAndroid)
     id(Plugins.daggerHilt)
     id(Plugins.ktLint)
-    id(Plugins.apollo).version(Versions.apollo)
+    id(Plugins.apollo)
     kotlin(Plugins.kotlinKapt)
 }
 
