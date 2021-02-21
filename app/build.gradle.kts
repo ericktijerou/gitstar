@@ -5,6 +5,7 @@ plugins {
     id(Plugins.ktLint)
     id(Plugins.apollo)
     kotlin(Plugins.kotlinKapt)
+    id(Plugins.kotlinParcelize)
 }
 
 android {
@@ -73,6 +74,7 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
+        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
         useIR = true
     }
 
@@ -114,12 +116,20 @@ dependencies {
     implementation(Libs.Coroutines.android)
 
     // Compose
+    implementation(Libs.Compose.runtime)
+    implementation(Libs.Compose.foundation)
+    implementation(Libs.Compose.layout)
     implementation(Libs.Compose.ui)
+    implementation(Libs.Compose.uiUtil)
     implementation(Libs.Compose.material)
+    implementation(Libs.Compose.animation)
+    implementation(Libs.Compose.iconsExtended)
     implementation(Libs.Compose.tooling)
+    implementation(Libs.Activity.activityCompose)
+    implementation(Libs.ConstraintLayout.constraintLayoutCompose)
 
     // Architecture Components
-    implementation(Libs.Lifecycle.viewModel)
+    implementation(Libs.Lifecycle.viewModelCompose)
     implementation(Libs.Lifecycle.liveData)
     implementation(Libs.Room.runtime)
     implementation(Libs.Room.ktx)
@@ -141,4 +151,8 @@ dependencies {
 
     // OkHttp
     implementation(Libs.OkHttp.okHttpInterceptor)
+
+    // Accompanist
+    implementation(Libs.Accompanist.coil)
+    implementation(Libs.Accompanist.insets)
 }
