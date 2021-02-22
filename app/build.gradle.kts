@@ -40,7 +40,6 @@ android {
             isMinifyEnabled = false
             isShrinkResources = false
             isTestCoverageEnabled = true
-
             buildConfigField(
                 "String",
                 "API_URL",
@@ -116,7 +115,6 @@ dependencies {
     implementation(Libs.Coroutines.android)
 
     // Compose
-    implementation(Libs.Compose.runtime)
     implementation(Libs.Compose.foundation)
     implementation(Libs.Compose.layout)
     implementation(Libs.Compose.ui)
@@ -134,6 +132,7 @@ dependencies {
     implementation(Libs.Room.runtime)
     implementation(Libs.Room.ktx)
     implementation(Libs.Paging.runtime)
+    implementation(Libs.Navigation.compose)
     kapt(Libs.Room.compiler)
 
     // Hilt + Dagger

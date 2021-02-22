@@ -53,10 +53,12 @@ object Libs {
             "androidx.compose.material:material-icons-extended:${Versions.compose}"
         const val composeUiTest = "androidx.compose.ui:ui-test:${Versions.compose}"
         const val composeLifecycle = "androidx.compose.runtime:runtime-livedata:${Versions.compose}"
-        const val navigation =
-            "androidx.navigation:navigation-compose:${Versions.composeNav}"
         const val paging = "androidx.paging:paging-compose:${Versions.composePaging}"
         const val animation = "androidx.compose.animation:animation:${Versions.compose}"
+    }
+
+    object Navigation {
+        const val compose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
     }
 
     object Apollo {
@@ -128,11 +130,11 @@ object Versions {
     internal const val room = "2.3.0-beta01"
     internal const val okhttp = "4.9.1"
     internal const val paging = "3.0.0-alpha13"
-    internal const val composeNav = "1.0.0-alpha06"
     internal const val composePaging = "1.0.0-alpha07"
     internal const val composeViewModel = "1.0.0-alpha01"
     internal const val composeActivity = "1.3.0-alpha02"
     internal const val composeConstraint = "1.0.0-alpha02"
+    internal const val navigationCompose = "1.0.0-alpha07"
     const val kotlin = "1.4.30"
     const val apollo = "2.5.3"
     const val compose = "1.0.0-alpha12"

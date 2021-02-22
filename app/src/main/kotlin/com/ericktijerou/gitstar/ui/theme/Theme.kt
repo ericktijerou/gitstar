@@ -9,7 +9,7 @@ import com.ericktijerou.gitstar.ui.util.LocalSysUiController
 
 private val LightColorPalette = GitstarColors(
     brand = Neutral0,
-    uiBackground = Neutral2,
+    uiBackground = Neutral0,
     uiBorder = Neutral4,
     uiFloated = FunctionalGrey,
     textSecondary = Neutral7,
@@ -31,7 +31,7 @@ private val LightColorPalette = GitstarColors(
 
 private val DarkColorPalette = GitstarColors(
     brand = Neutral8,
-    uiBackground = Neutral5,
+    uiBackground = Neutral8,
     uiBorder = Neutral3,
     uiFloated = FunctionalDarkGrey,
     textPrimary = Neutral8,

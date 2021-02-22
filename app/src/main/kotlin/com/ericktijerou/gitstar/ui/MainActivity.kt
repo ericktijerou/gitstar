@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val systemUiController = remember { SystemUiController(window) }
             Providers(LocalSysUiController provides systemUiController) {
-                GitstartMain(onBackPressedDispatcher)
+                GitstartMain()
             }
         }
     }
