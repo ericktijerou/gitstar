@@ -21,7 +21,7 @@ import androidx.navigation.compose.*
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.component.GitstarScaffold
-import com.ericktijerou.gitstar.ui.home.Profile.Profile
+import com.ericktijerou.gitstar.ui.home.profile.Profile
 import com.ericktijerou.gitstar.ui.home.feed.Feed
 import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 

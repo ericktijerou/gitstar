@@ -1,4 +1,4 @@
-package com.ericktijerou.gitstar.ui.home.Profile
+package com.ericktijerou.gitstar.ui.home.profile
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
