@@ -19,15 +19,11 @@ import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 @Composable
 fun Feed(modifier: Modifier = Modifier) {
     val navController = rememberNavController()
-
+    FeedNavigationConfigurations(navController = navController, modifier = modifier)
     HomeCategoryTabs(
         navController = navController,
         categories = listOf(FeedTabs.User, FeedTabs.Repository),
     )
-    NavHost(navController, startDestination = FeedTabs.User.route) {
-        composable(FeedTabs.User.route) { UserList(modifier) }
-        composable(FeedTabs.Repository.route) { RepositoryList(modifier) }
-    }
 }
 
 @Composable
@@ -60,6 +56,17 @@ private fun HomeCategoryTabs(
                 }
             )
         }
+    }
+}
+
+@Composable
+private fun FeedNavigationConfigurations(
+    navController: NavHostController,
+    modifier: Modifier
+) {
+    NavHost(navController, startDestination = FeedTabs.User.route) {
+        composable(FeedTabs.User.route) { UserList(modifier) }
+        composable(FeedTabs.Repository.route) { RepositoryList(modifier) }
     }
 }
 
