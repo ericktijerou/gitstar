@@ -12,13 +12,9 @@ object Libs {
     object Dagger {
         const val daggerCompiler = "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
         const val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.daggerHiltAndroid}"
-        const val hiltViewModel =
-            "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroid}"
+        const val hiltViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.daggerHiltAndroid}"
+        const val hiltNavigation = "androidx.hilt:hilt-navigation-fragment:${Versions.daggerHiltAndroid}"
         const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
-    }
-
-    object Coil {
-        const val coil = "io.coil-kt:coil:${Versions.coil}"
     }
 
     object Activity {
@@ -120,7 +116,7 @@ object Versions {
     internal const val appcompat = "1.2.0"
     internal const val gradle = "7.0.0-alpha07"
     internal const val daggerHilt = "2.31-alpha"
-    internal const val daggerHiltAndroid = "1.0.0-alpha02"
+    internal const val daggerHiltAndroid = "1.0.0-alpha03"
     internal const val coroutines = "1.4.2"
     internal const val materialDesign = "1.3.0"
     internal const val ktLint = "9.2.1"

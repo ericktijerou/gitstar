@@ -123,6 +123,7 @@ dependencies {
     implementation(Libs.Compose.animation)
     implementation(Libs.Compose.iconsExtended)
     implementation(Libs.Compose.tooling)
+    implementation(Libs.Compose.paging)
     implementation(Libs.Activity.activityCompose)
     implementation(Libs.ConstraintLayout.constraintLayoutCompose)
 
@@ -138,11 +139,9 @@ dependencies {
     // Hilt + Dagger
     implementation(Libs.Dagger.hiltAndroid)
     implementation(Libs.Dagger.hiltViewModel)
+    implementation(Libs.Dagger.hiltNavigation)
     kapt(Libs.Dagger.daggerCompiler)
     kapt(Libs.Dagger.hiltCompiler)
-
-    // Coil-kt
-    implementation(Libs.Coil.coil)
 
     // Apollo
     implementation(Libs.Apollo.apollo)

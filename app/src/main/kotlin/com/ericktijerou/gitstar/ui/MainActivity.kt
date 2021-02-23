@@ -7,7 +7,9 @@ import androidx.compose.runtime.Providers
 import androidx.compose.runtime.remember
 import com.ericktijerou.gitstar.ui.util.LocalSysUiController
 import com.ericktijerou.gitstar.ui.util.SystemUiController
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
