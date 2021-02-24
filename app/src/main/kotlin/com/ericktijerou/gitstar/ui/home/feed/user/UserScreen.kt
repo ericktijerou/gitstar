@@ -14,7 +14,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.paging.LoadState
-import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.ericktijerou.gitstar.R
@@ -22,7 +21,6 @@ import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.entity.UserView
 import com.ericktijerou.gitstar.ui.util.hiltViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
-import kotlinx.coroutines.flow.Flow
 
 @Composable
 fun UserScreen(

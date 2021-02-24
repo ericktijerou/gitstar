@@ -21,14 +21,16 @@ import com.ericktijerou.gitstar.ui.util.PagerState
 
 @Composable
 fun Feed(navHostController: NavHostController, modifier: Modifier = Modifier) {
+    val pages = listOf(FeedTabs.User, FeedTabs.Repository)
     val pagerState = remember { PagerState() }
     Column(modifier = modifier) {
         FeedTabBar(
-            categories = listOf(FeedTabs.User, FeedTabs.Repository),
+            categories = pages,
+            pagerState = pagerState
         )
         FeedViewPager(
             navHostController = navHostController,
-            items = listOf(FeedTabs.User, FeedTabs.Repository),
+            items = pages,
             pagerState = pagerState,
             modifier = Modifier.fillMaxSize()
         )
@@ -64,18 +66,19 @@ fun FeedViewPager(
 @Composable
 private fun FeedTabBar(
     categories: List<FeedTabs>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    pagerState: PagerState = remember { PagerState() }
 ) {
     TabRow(
-        selectedTabIndex = 0,
+        selectedTabIndex = pagerState.currentPage,
         modifier = modifier,
         backgroundColor = GitstarTheme.colors.iconPrimary
     ) {
         categories.forEachIndexed { index, category ->
             Tab(
-                selected = true,
+                selected = pagerState.currentPage == index,
                 onClick = {
-
+                    pagerState.currentPage = index
                 },
                 text = {
                     Text(
