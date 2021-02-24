@@ -102,6 +102,7 @@ fun Pager(
     state: PagerState,
     modifier: Modifier = Modifier,
     offscreenLimit: Int = 2,
+    userInputEnabled: Boolean = true,
     pageContent: @Composable PagerScope.() -> Unit
 ) {
     var pageSize by remember { mutableStateOf(0) }
@@ -123,6 +124,7 @@ fun Pager(
         },
         modifier = modifier.draggable(
             orientation = Orientation.Horizontal,
+            enabled = userInputEnabled,
             onDragStarted = {
                 state.selectionState = PagerState.SelectionState.Undecided
             },

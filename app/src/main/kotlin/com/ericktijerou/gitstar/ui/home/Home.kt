@@ -31,7 +31,7 @@ import com.ericktijerou.gitstar.ui.util.PagerState
 @Composable
 fun Home() {
     val navHostController = rememberNavController()
-    val sections = listOf(HomeSection.Feed, HomeSection.Profile)
+    val sections = listOf(HomeSection.Feed, HomeSection.Profile, HomeSection.Explorer)
     val pagerState = remember { PagerState() }
     GitstarScaffold(
         topBar = { HomeAppBar(Modifier.fillMaxWidth()) },
@@ -47,6 +47,7 @@ fun Home() {
             navHostController = navHostController,
             items = sections,
             pagerState = pagerState,
+            userInputEnabled = false,
             modifier = modifier.fillMaxSize()
         )
     }
@@ -57,11 +58,13 @@ fun HomeViewPager(
     navHostController: NavHostController,
     items: List<HomeSection>,
     modifier: Modifier = Modifier,
+    userInputEnabled: Boolean = true,
     pagerState: PagerState = remember { PagerState() },
 ) {
     pagerState.maxPage = (items.size - 1).coerceAtLeast(0)
     Pager(
         state = pagerState,
+        userInputEnabled = userInputEnabled,
         modifier = modifier
     ) {
         when (items[page]) {
@@ -72,8 +75,10 @@ fun HomeViewPager(
             is HomeSection.Profile -> Profile(
                 modifier = Modifier.fillMaxSize()
             )
+            is HomeSection.Explorer -> Profile(
+                modifier = Modifier.fillMaxSize()
+            )
         }
-
     }
 }
 
@@ -121,4 +126,5 @@ fun HomeAppBar(
 sealed class HomeSection(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
     object Feed : HomeSection("feed", R.string.home_feed, Icons.Outlined.Home)
     object Profile : HomeSection("profile", R.string.home_profile, Icons.Outlined.AccountCircle)
+    object Explorer : HomeSection("explorer", R.string.home_profile, Icons.Outlined.AccountCircle)
 }
