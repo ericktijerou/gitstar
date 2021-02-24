@@ -8,7 +8,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.HiltViewModelFactory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavBackStackEntry
+import com.ericktijerou.gitstar.ui.home.feed.repository.RepoViewModel
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -63,10 +65,4 @@ fun String.toRelativeTime(): String {
         )
     }
     return relativeTime.toString()
-}
-
-@Composable
-inline fun <reified VM : ViewModel> NavBackStackEntry.hiltNavGraphViewModel(): VM {
-    val viewModelFactory = HiltViewModelFactory(LocalContext.current, this)
-    return ViewModelProvider(this, viewModelFactory).get(VM::class.java)
 }

@@ -1,52 +1,81 @@
 package com.ericktijerou.gitstar.ui.home.feed
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.*
 import com.ericktijerou.gitstar.R
-import com.ericktijerou.gitstar.ui.home.feed.repository.RepositoryList
-import com.ericktijerou.gitstar.ui.home.feed.user.UserList
+import com.ericktijerou.gitstar.ui.home.feed.repository.RepoScreen
+import com.ericktijerou.gitstar.ui.home.feed.user.UserScreen
 import com.ericktijerou.gitstar.ui.theme.GitstarTheme
+import com.ericktijerou.gitstar.ui.util.Pager
+import com.ericktijerou.gitstar.ui.util.PagerState
 
 @Composable
-fun Feed(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
-    FeedNavigationConfigurations(navController = navController, modifier = modifier)
-    HomeCategoryTabs(
-        navController = navController,
-        categories = listOf(FeedTabs.User, FeedTabs.Repository),
-    )
+fun Feed(navHostController: NavHostController, modifier: Modifier = Modifier) {
+    val pagerState = remember { PagerState() }
+    Column(modifier = modifier) {
+        FeedTabBar(
+            categories = listOf(FeedTabs.User, FeedTabs.Repository),
+        )
+        FeedViewPager(
+            navHostController = navHostController,
+            items = listOf(FeedTabs.User, FeedTabs.Repository),
+            pagerState = pagerState,
+            modifier = Modifier.fillMaxSize()
+        )
+    }
 }
 
 @Composable
-private fun HomeCategoryTabs(
-    navController: NavHostController,
+fun FeedViewPager(
+    navHostController: NavHostController,
+    items: List<FeedTabs>,
+    modifier: Modifier = Modifier,
+    pagerState: PagerState = remember { PagerState() },
+) {
+    pagerState.maxPage = (items.size - 1).coerceAtLeast(0)
+    Pager(
+        state = pagerState,
+        modifier = modifier
+    ) {
+        when (items[page]) {
+            is FeedTabs.User -> UserScreen(
+                navHostController = navHostController,
+                modifier = modifier
+            )
+            is FeedTabs.Repository -> RepoScreen(
+                navHostController = navHostController,
+                modifier = modifier
+            )
+        }
+
+    }
+}
+
+@Composable
+private fun FeedTabBar(
     categories: List<FeedTabs>,
     modifier: Modifier = Modifier
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.arguments?.getString(KEY_ROUTE) ?: FeedTabs.User.route
-    val selectedIndex = categories.indexOfFirst { it.route == currentRoute }
     TabRow(
-        selectedTabIndex = selectedIndex,
+        selectedTabIndex = 0,
         modifier = modifier,
         backgroundColor = GitstarTheme.colors.iconPrimary
     ) {
         categories.forEachIndexed { index, category ->
             Tab(
-                selected = index == selectedIndex,
+                selected = true,
                 onClick = {
-                    if (currentRoute != category.route) {
-                        navController.navigate(category.route)
-                    }
+
                 },
                 text = {
                     Text(
@@ -56,17 +85,6 @@ private fun HomeCategoryTabs(
                 }
             )
         }
-    }
-}
-
-@Composable
-private fun FeedNavigationConfigurations(
-    navController: NavHostController,
-    modifier: Modifier
-) {
-    NavHost(navController, startDestination = FeedTabs.User.route) {
-        composable(FeedTabs.User.route) { UserList(modifier) }
-        composable(FeedTabs.Repository.route) { RepositoryList(modifier) }
     }
 }
 

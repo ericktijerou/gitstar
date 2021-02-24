@@ -37,7 +37,7 @@ fun Home() {
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
         NavHost(navController, startDestination = HomeSection.Feed.route) {
-            composable(HomeSection.Feed.route) { Feed(modifier) }
+            composable(HomeSection.Feed.route) { Feed(navController, modifier) }
             composable(HomeSection.Profile.route) { Profile(modifier) }
         }
     }
