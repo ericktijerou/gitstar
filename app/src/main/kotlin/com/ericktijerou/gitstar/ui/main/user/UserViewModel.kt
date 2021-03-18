@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ericktijerou.gitstar.ui.home.feed.user
+package com.ericktijerou.gitstar.ui.main.user
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -19,17 +19,17 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.ericktijerou.gitstar.ui.home.Home
+import com.ericktijerou.gitstar.ui.main.MainScreen
 import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 @Composable
-fun GitstartMain() {
+fun GitstartApp() {
     ProvideWindowInsets {
         GitstarTheme {
             val navController = rememberNavController()
-            NavHost(navController, startDestination = Screen.Home.route) {
-                composable(Screen.Home.route) { Home() }
+            NavHost(navController, startDestination = Screen.Main.route) {
+                composable(Screen.Main.route) { MainScreen() }
             }
         }
     }

@@ -5,6 +5,6 @@
     <string name="home_search">Search</string>
     <string name="home_cart">My Cart</string>
     <string name="home_profile">Profile</string>
-    <string name="home_user_list">User</string>
-    <string name="home_repo_list">Repository</string>
+    <string name="label_user">User</string>
+    <string name="label_repo">Repo</string>
 </resources>

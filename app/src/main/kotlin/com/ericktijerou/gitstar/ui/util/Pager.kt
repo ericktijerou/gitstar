@@ -120,6 +120,7 @@ fun Pager(
     state: PagerState,
     modifier: Modifier = Modifier,
     offscreenLimit: Int = 2,
+    userInputEnabled: Boolean = true,
     pageContent: @Composable PagerScope.() -> Unit
 ) {
     var pageSize by remember { mutableStateOf(0) }
@@ -144,6 +145,7 @@ fun Pager(
             onDragStarted = {
                 state.selectionState = PagerState.SelectionState.Undecided
             },
+            enabled = userInputEnabled,
             onDragStopped = { velocity ->
                 coroutineScope.launch {
                     // Velocity is in pixels per second, but we deal in percentage offsets, so we

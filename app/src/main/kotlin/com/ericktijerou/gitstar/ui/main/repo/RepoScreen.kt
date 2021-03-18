@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ericktijerou.gitstar.ui.home.feed.user
+package com.ericktijerou.gitstar.ui.main.repo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.MaterialTheme
@@ -31,26 +30,23 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
-import com.ericktijerou.gitstar.ui.entity.UserView
+import com.ericktijerou.gitstar.ui.entity.RepoView
+import com.ericktijerou.gitstar.ui.main.repo.RepoViewModel
 import com.ericktijerou.gitstar.ui.util.hiltViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun UserScreen(
-    navHostController: NavHostController,
-    modifier: Modifier
-) {
-    val viewModel: UserViewModel by hiltViewModel()
-    val lazyMovieItems = viewModel.userList.collectAsLazyPagingItems()
+fun RepoScreen(modifier: Modifier) {
+    val viewModel: RepoViewModel by hiltViewModel()
+    val lazyMovieItems = viewModel.repoList.collectAsLazyPagingItems()
     LazyColumn(modifier = modifier) {
-        items(lazyMovieItems) { user ->
-            UserItem(user = user!!)
+        items(lazyMovieItems) { repo ->
+            RepoItem(repo = repo!!)
         }
         lazyMovieItems.apply {
             when {
@@ -85,7 +81,7 @@ fun UserScreen(
 }
 
 @Composable
-fun UserItem(user: UserView) {
+fun RepoItem(repo: RepoView) {
     Row(
         modifier = Modifier
             .padding(start = 16.dp, top = 16.dp, end = 16.dp)
@@ -93,19 +89,15 @@ fun UserItem(user: UserView) {
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        UserName(
-            user.name,
+        RepoName(
+            repo.name,
             modifier = Modifier.weight(1f)
-        )
-        UserImage(
-            user.avatarUrl,
-            modifier = Modifier.padding(start = 16.dp).height(90.dp)
         )
     }
 }
 
 @Composable
-fun UserImage(
+fun RepoImage(
     imageUrl: String,
     modifier: Modifier = Modifier
 ) {
@@ -116,16 +108,24 @@ fun UserImage(
         fadeIn = true,
         contentScale = ContentScale.Crop,
         loading = {
-            Image(painterResource(id = R.drawable.ic_clock), alpha = 0.45f, contentDescription = EMPTY)
+            Image(
+                painterResource(id = R.drawable.ic_clock),
+                alpha = 0.45f,
+                contentDescription = EMPTY
+            )
         },
         error = {
-            Image(painterResource(id = R.drawable.ic_fork), alpha = 0.45f, contentDescription = EMPTY)
+            Image(
+                painterResource(id = R.drawable.ic_fork),
+                alpha = 0.45f,
+                contentDescription = EMPTY
+            )
         }
     )
 }
 
 @Composable
-fun UserName(
+fun RepoName(
     title: String,
     modifier: Modifier = Modifier
 ) {

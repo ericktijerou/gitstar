@@ -18,8 +18,11 @@ package com.ericktijerou.gitstar.ui
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
+import androidx.compose.ui.tooling.preview.Preview
+import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 import com.ericktijerou.gitstar.ui.util.LocalSysUiController
 import com.ericktijerou.gitstar.ui.util.SystemUiController
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,8 +34,16 @@ class MainActivity : AppCompatActivity() {
         setContent {
             val systemUiController = remember { SystemUiController(window) }
             CompositionLocalProvider(LocalSysUiController provides systemUiController) {
-                GitstartMain()
+                GitstartApp()
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+    GitstarTheme {
+        GitstartApp()
     }
 }

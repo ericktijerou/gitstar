@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ericktijerou.gitstar.ui.home
+package com.ericktijerou.gitstar.ui.main
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
@@ -40,15 +40,14 @@ import androidx.navigation.compose.rememberNavController
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.component.GitstarScaffold
-import com.ericktijerou.gitstar.ui.home.feed.Feed
-import com.ericktijerou.gitstar.ui.home.profile.Profile
+import com.ericktijerou.gitstar.ui.main.repo.RepoScreen
+import com.ericktijerou.gitstar.ui.main.user.UserScreen
 import com.ericktijerou.gitstar.ui.util.Pager
 import com.ericktijerou.gitstar.ui.util.PagerState
 
 @Composable
-fun Home() {
-    val navHostController = rememberNavController()
-    val sections = listOf(HomeSection.Feed, HomeSection.Profile, HomeSection.Explorer)
+fun MainScreen() {
+    val sections = listOf(MainSection.User, MainSection.Repo)
     val pagerState = remember { PagerState() }
     GitstarScaffold(
         topBar = { HomeAppBar(Modifier.fillMaxWidth()) },
@@ -61,7 +60,6 @@ fun Home() {
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
         HomeViewPager(
-            navHostController = navHostController,
             items = sections,
             pagerState = pagerState,
             modifier = modifier.fillMaxSize()
@@ -71,25 +69,21 @@ fun Home() {
 
 @Composable
 fun HomeViewPager(
-    navHostController: NavHostController,
-    items: List<HomeSection>,
+    items: List<MainSection>,
     modifier: Modifier = Modifier,
     pagerState: PagerState = remember { PagerState() },
 ) {
     pagerState.maxPage = (items.size - 1).coerceAtLeast(0)
     Pager(
         state = pagerState,
-        modifier = modifier
+        modifier = modifier,
+        userInputEnabled = false
     ) {
         when (items[page]) {
-            is HomeSection.Feed -> Feed(
-                navHostController = navHostController,
+            is MainSection.User -> UserScreen(
                 modifier = Modifier.fillMaxSize()
             )
-            is HomeSection.Profile -> Profile(
-                modifier = Modifier.fillMaxSize()
-            )
-            is HomeSection.Explorer -> Profile(
+            is MainSection.Repo -> RepoScreen(
                 modifier = Modifier.fillMaxSize()
             )
         }
@@ -98,7 +92,7 @@ fun HomeViewPager(
 
 @Composable
 fun HomeBottomNavigation(
-    sections: List<HomeSection>,
+    sections: List<MainSection>,
     pagerState: PagerState = remember { PagerState() }
 ) {
     BottomNavigation {
@@ -131,8 +125,7 @@ fun HomeAppBar(
     )
 }
 
-sealed class HomeSection(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
-    object Feed : HomeSection("feed", R.string.home_feed, Icons.Outlined.Home)
-    object Profile : HomeSection("profile", R.string.home_profile, Icons.Outlined.AccountCircle)
-    object Explorer : HomeSection("explorer", R.string.home_profile, Icons.Outlined.AccountCircle)
+sealed class MainSection(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
+    object User : MainSection("user", R.string.label_user, Icons.Outlined.Home)
+    object Repo : MainSection("repo", R.string.label_repo, Icons.Outlined.AccountCircle)
 }
