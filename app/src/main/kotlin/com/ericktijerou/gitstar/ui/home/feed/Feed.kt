@@ -85,8 +85,7 @@ private fun FeedTabBar(
 ) {
     TabRow(
         selectedTabIndex = pagerState.currentPage,
-        modifier = modifier,
-        backgroundColor = GitstarTheme.colors.iconPrimary
+        modifier = modifier
     ) {
         categories.forEachIndexed { index, category ->
             Tab(

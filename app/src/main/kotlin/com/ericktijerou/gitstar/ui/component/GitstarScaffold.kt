@@ -47,11 +47,6 @@ fun GitstarScaffold(
     drawerContent: @Composable (ColumnScope.() -> Unit)? = null,
     drawerShape: Shape = MaterialTheme.shapes.large,
     drawerElevation: Dp = DrawerDefaults.Elevation,
-    drawerBackgroundColor: Color = GitstarTheme.colors.uiBackground,
-    drawerContentColor: Color = GitstarTheme.colors.textSecondary,
-    drawerScrimColor: Color = GitstarTheme.colors.uiBorder,
-    backgroundColor: Color = GitstarTheme.colors.uiBackground,
-    contentColor: Color = GitstarTheme.colors.textSecondary,
     bodyContent: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
@@ -66,11 +61,6 @@ fun GitstarScaffold(
         drawerContent = drawerContent,
         drawerShape = drawerShape,
         drawerElevation = drawerElevation,
-        drawerBackgroundColor = drawerBackgroundColor,
-        drawerContentColor = drawerContentColor,
-        drawerScrimColor = drawerScrimColor,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
         content = bodyContent
     )
 }

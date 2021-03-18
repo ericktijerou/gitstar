@@ -32,7 +32,6 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -43,7 +42,6 @@ import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.component.GitstarScaffold
 import com.ericktijerou.gitstar.ui.home.feed.Feed
 import com.ericktijerou.gitstar.ui.home.profile.Profile
-import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 import com.ericktijerou.gitstar.ui.util.Pager
 import com.ericktijerou.gitstar.ui.util.PagerState
 
@@ -66,7 +64,6 @@ fun Home() {
             navHostController = navHostController,
             items = sections,
             pagerState = pagerState,
-            userInputEnabled = false,
             modifier = modifier.fillMaxSize()
         )
     }
@@ -77,7 +74,6 @@ fun HomeViewPager(
     navHostController: NavHostController,
     items: List<HomeSection>,
     modifier: Modifier = Modifier,
-    userInputEnabled: Boolean = true,
     pagerState: PagerState = remember { PagerState() },
 ) {
     pagerState.maxPage = (items.size - 1).coerceAtLeast(0)
@@ -105,10 +101,7 @@ fun HomeBottomNavigation(
     sections: List<HomeSection>,
     pagerState: PagerState = remember { PagerState() }
 ) {
-    BottomNavigation(
-        backgroundColor = GitstarTheme.colors.iconPrimary,
-        contentColor = GitstarTheme.colors.textInteractive
-    ) {
+    BottomNavigation {
         sections.forEachIndexed { index, section ->
             BottomNavigationItem(
                 icon = { Icon(imageVector = section.icon, contentDescription = EMPTY) },
@@ -123,7 +116,6 @@ fun HomeBottomNavigation(
 @Composable
 fun HomeAppBar(
     modifier: Modifier = Modifier,
-    backgroundColor: Color = GitstarTheme.colors.iconPrimary
 ) {
     TopAppBar(
         title = {
@@ -135,7 +127,6 @@ fun HomeAppBar(
                     .height(24.dp)
             )
         },
-        backgroundColor = backgroundColor,
         modifier = modifier
     )
 }

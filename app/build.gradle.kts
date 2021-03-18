@@ -35,10 +35,6 @@ android {
 
     buildTypes {
         getByName("debug") {
-            isDebuggable = true
-            isMinifyEnabled = false
-            isShrinkResources = false
-            isTestCoverageEnabled = true
             buildConfigField(
                 "String",
                 "API_URL",
@@ -48,7 +44,6 @@ android {
 
         getByName("release") {
             isMinifyEnabled = true
-            isShrinkResources = true
             isDebuggable = false
             proguardFile(getDefaultProguardFile("proguard-android.txt"))
             proguardFile(file("proguard-rules.pro"))
