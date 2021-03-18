@@ -36,7 +36,6 @@ import androidx.paging.compose.items
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.entity.RepoView
-import com.ericktijerou.gitstar.ui.main.repo.RepoViewModel
 import com.ericktijerou.gitstar.ui.util.hiltViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
 

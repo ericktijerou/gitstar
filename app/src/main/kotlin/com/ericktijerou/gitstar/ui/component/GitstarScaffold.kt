@@ -28,10 +28,8 @@ import androidx.compose.material.SnackbarHostState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
-import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

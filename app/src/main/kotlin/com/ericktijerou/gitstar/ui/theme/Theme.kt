@@ -69,7 +69,6 @@ private val DarkPuppyColorPalette = GitstarColors(
     isDark = true
 )
 
-
 @Composable
 fun GitstarTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
