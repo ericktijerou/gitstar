@@ -1,14 +1,36 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.ericktijerou.gitstar.ui.util
 
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.AnimationEndReason
-import androidx.compose.animation.core.exponentialDecay
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.rememberDraggableState
 import androidx.compose.foundation.layout.Box
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.structuralEqualityPolicy
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.gesture.scrollorientationlocking.Orientation
 import androidx.compose.ui.layout.Layout
 import androidx.compose.ui.layout.Measurable
 import androidx.compose.ui.layout.ParentDataModifier
@@ -77,16 +99,12 @@ class PagerState(
         if (velocity < 0 && currentPage == maxPage) return
         if (velocity > 0 && currentPage == minPage) return
 
-        val result = _currentPageOffset.animateDecay(velocity, exponentialDecay())
-
-        if (result.endReason != AnimationEndReason.Interrupted) {
-            _currentPageOffset.animateTo(currentPageOffset.roundToInt().toFloat())
-            selectPage()
-        }
+        _currentPageOffset.animateTo(currentPageOffset.roundToInt().toFloat())
+        selectPage()
     }
 
     override fun toString(): String = "PagerState{minPage=$minPage, maxPage=$maxPage, " +
-            "currentPage=$currentPage, currentPageOffset=$currentPageOffset}"
+        "currentPage=$currentPage, currentPageOffset=$currentPageOffset}"
 }
 
 @Immutable
@@ -102,7 +120,6 @@ fun Pager(
     state: PagerState,
     modifier: Modifier = Modifier,
     offscreenLimit: Int = 2,
-    userInputEnabled: Boolean = true,
     pageContent: @Composable PagerScope.() -> Unit
 ) {
     var pageSize by remember { mutableStateOf(0) }
@@ -124,7 +141,6 @@ fun Pager(
         },
         modifier = modifier.draggable(
             orientation = Orientation.Horizontal,
-            enabled = userInputEnabled,
             onDragStarted = {
                 state.selectionState = PagerState.SelectionState.Undecided
             },
@@ -134,18 +150,19 @@ fun Pager(
                     // need to scale the velocity to match
                     state.fling(velocity / pageSize)
                 }
-            }
-        ) { dy ->
-            coroutineScope.launch {
-                with(state) {
-                    val pos = pageSize * currentPageOffset
-                    val max = if (currentPage == minPage) 0 else pageSize * offscreenLimit
-                    val min = if (currentPage == maxPage) 0 else -pageSize * offscreenLimit
-                    val newPos = (pos + dy).coerceIn(min.toFloat(), max.toFloat())
-                    snapToOffset(newPos / pageSize)
+            },
+            state = rememberDraggableState { dy ->
+                coroutineScope.launch {
+                    with(state) {
+                        val pos = pageSize * currentPageOffset
+                        val max = if (currentPage == minPage) 0 else pageSize * offscreenLimit
+                        val min = if (currentPage == maxPage) 0 else -pageSize * offscreenLimit
+                        val newPos = (pos + dy).coerceIn(min.toFloat(), max.toFloat())
+                        snapToOffset(newPos / pageSize)
+                    }
                 }
-            }
-        }
+            },
+        )
     ) { measurables, constraints ->
         layout(constraints.maxWidth, constraints.maxHeight) {
             val currentPage = state.currentPage
@@ -157,6 +174,8 @@ fun Pager(
                     it.measure(childConstraints) to it.page
                 }
                 .forEach { (placeable, page) ->
+                    // TODO: current this centers each page. We should investigate reading
+                    //  gravity modifiers on the child, or maybe as a param to Pager.
                     val xCenterOffset = (constraints.maxWidth - placeable.width) / 2
                     val yCenterOffset = (constraints.maxHeight - placeable.height) / 2
 
@@ -175,16 +194,28 @@ fun Pager(
     }
 }
 
+/**
+ * Scope for [Pager] content.
+ */
 class PagerScope(
     private val state: PagerState,
     val page: Int
 ) {
+    /**
+     * Returns the current selected page
+     */
     val currentPage: Int
         get() = state.currentPage
 
+    /**
+     * Returns the current selected page offset
+     */
     val currentPageOffset: Float
         get() = state.currentPageOffset
 
+    /**
+     * Returns the current selection state
+     */
     val selectionState: PagerState.SelectionState
         get() = state.selectionState
 }

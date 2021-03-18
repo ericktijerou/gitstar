@@ -10,15 +10,8 @@ buildscript {
         classpath(ClassPaths.gradlePlugin)
         classpath(ClassPaths.kotlinPlugin)
         classpath(ClassPaths.daggerPlugin)
-        classpath(ClassPaths.ktLintPlugin)
         classpath(ClassPaths.apolloPlugin)
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
+        classpath(ClassPaths.spotlessPlugin)
     }
 }
 

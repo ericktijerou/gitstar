@@ -2,10 +2,9 @@ plugins {
     id(Plugins.androidApplication)
     kotlin(Plugins.kotlinAndroid)
     id(Plugins.daggerHilt)
-    id(Plugins.ktLint)
     id(Plugins.apollo)
     kotlin(Plugins.kotlinKapt)
-    id(Plugins.kotlinParcelize)
+    id(Plugins.spotless)
 }
 
 android {
@@ -92,13 +91,28 @@ android {
     }
 }
 
-ktlint {
-    android.set(true)
-    outputColorName.set("RED")
-}
-
 apollo {
     generateKotlinModels.set(true)
+}
+
+spotless {
+    kotlin {
+        target("**/*.kt")
+        targetExclude("$buildDir/**/*.kt")
+        targetExclude("bin/**/*.kt")
+        ktlint(Versions.ktlint)
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        licenseHeaderFile(rootProject.file("spotless/copyright.kt"))
+    }
+    kotlinGradle {
+        target("**/*.gradle.kts", "*.gradle.kts")
+        ktlint(Versions.ktlint)
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+    }
 }
 
 dependencies {
