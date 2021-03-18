@@ -40,7 +40,7 @@ import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.component.GitstarScaffold
 import com.ericktijerou.gitstar.ui.main.repo.RepoScreen
-import com.ericktijerou.gitstar.ui.main.user.UserScreen
+import com.ericktijerou.gitstar.ui.main.user.UserListScreen
 import com.ericktijerou.gitstar.ui.util.Pager
 import com.ericktijerou.gitstar.ui.util.PagerState
 import com.ericktijerou.gitstar.ui.util.ThemedPreview
@@ -80,12 +80,8 @@ fun HomeViewPager(
         userInputEnabled = false
     ) {
         when (items[page]) {
-            is MainSection.User -> UserScreen(
-                modifier = Modifier.fillMaxSize()
-            )
-            is MainSection.Repo -> RepoScreen(
-                modifier = Modifier.fillMaxSize()
-            )
+            is MainSection.User -> UserListScreen()
+            is MainSection.Repo -> RepoScreen()
         }
     }
 }

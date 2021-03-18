@@ -40,7 +40,7 @@ import com.ericktijerou.gitstar.ui.util.hiltViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun RepoScreen(modifier: Modifier) {
+fun RepoScreen(modifier: Modifier = Modifier) {
     val viewModel: RepoViewModel by hiltViewModel()
     val lazyMovieItems = viewModel.repoList.collectAsLazyPagingItems()
     LazyColumn(modifier = modifier) {

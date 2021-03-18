@@ -18,6 +18,7 @@ package com.ericktijerou.gitstar.ui.main.user
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -30,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -37,16 +39,16 @@ import androidx.paging.compose.items
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.entity.UserView
+import com.ericktijerou.gitstar.ui.util.MockDataHelper
+import com.ericktijerou.gitstar.ui.util.ThemedPreview
 import com.ericktijerou.gitstar.ui.util.hiltViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun UserScreen(
-    modifier: Modifier
-) {
+fun UserListScreen(modifier: Modifier = Modifier) {
     val viewModel: UserViewModel by hiltViewModel()
     val lazyMovieItems = viewModel.userList.collectAsLazyPagingItems()
-    LazyColumn(modifier = modifier) {
+    LazyColumn(modifier = modifier.fillMaxSize()) {
         items(lazyMovieItems) { user ->
             UserItem(user = user!!)
         }
@@ -97,7 +99,9 @@ fun UserItem(user: UserView) {
         )
         UserImage(
             user.avatarUrl,
-            modifier = Modifier.padding(start = 16.dp).height(90.dp)
+            modifier = Modifier
+                .padding(start = 16.dp)
+                .height(90.dp)
         )
     }
 }
@@ -114,10 +118,18 @@ fun UserImage(
         fadeIn = true,
         contentScale = ContentScale.Crop,
         loading = {
-            Image(painterResource(id = R.drawable.ic_clock), alpha = 0.45f, contentDescription = EMPTY)
+            Image(
+                painterResource(id = R.drawable.ic_clock),
+                alpha = 0.45f,
+                contentDescription = EMPTY
+            )
         },
         error = {
-            Image(painterResource(id = R.drawable.ic_fork), alpha = 0.45f, contentDescription = EMPTY)
+            Image(
+                painterResource(id = R.drawable.ic_fork),
+                alpha = 0.45f,
+                contentDescription = EMPTY
+            )
         }
     )
 }
@@ -134,4 +146,21 @@ fun UserName(
         style = MaterialTheme.typography.h6,
         overflow = TextOverflow.Ellipsis
     )
+}
+
+
+@Preview("User item screen")
+@Composable
+fun PreviewUserItem() {
+    ThemedPreview {
+        UserItem(MockDataHelper.user)
+    }
+}
+
+@Preview("User item screen dark")
+@Composable
+fun PreviewUserItemDark() {
+    ThemedPreview(darkTheme = true) {
+        UserItem(MockDataHelper.user)
+    }
 }
