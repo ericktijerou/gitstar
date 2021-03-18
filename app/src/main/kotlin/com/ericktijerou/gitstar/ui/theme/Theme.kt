@@ -85,7 +85,7 @@ fun GitstarTheme(
     ProvideGitstarColors(customColors) {
         MaterialTheme(
             colors = colors,
-            typography = Typography,
+            typography = typography,
             shapes = Shapes,
             content = content
         )
