@@ -34,6 +34,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
@@ -42,6 +43,7 @@ import com.ericktijerou.gitstar.ui.main.repo.RepoScreen
 import com.ericktijerou.gitstar.ui.main.user.UserScreen
 import com.ericktijerou.gitstar.ui.util.Pager
 import com.ericktijerou.gitstar.ui.util.PagerState
+import com.ericktijerou.gitstar.ui.util.ThemedPreview
 
 @Composable
 fun MainScreen() {
@@ -126,4 +128,20 @@ fun HomeAppBar(
 sealed class MainSection(val route: String, @StringRes val resourceId: Int, val icon: ImageVector) {
     object User : MainSection("user", R.string.label_user, Icons.Outlined.Home)
     object Repo : MainSection("repo", R.string.label_repo, Icons.Outlined.AccountCircle)
+}
+
+@Preview("Main screen")
+@Composable
+fun PreviewMainScreen() {
+    ThemedPreview {
+        MainScreen()
+    }
+}
+
+@Preview("Main screen dark")
+@Composable
+fun PreviewMainScreenDark() {
+    ThemedPreview(darkTheme = true) {
+        MainScreen()
+    }
 }
