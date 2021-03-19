@@ -13,22 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ericktijerou.gitstar.ui.main.profile
+package com.ericktijerou.gitstar.ui.util
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import android.content.Context
 import com.ericktijerou.gitstar.R
+import javax.inject.Inject
 
-@Composable
-fun Profile(modifier: Modifier = Modifier) {
-    Text(
-        text = stringResource(R.string.home_profile),
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentSize()
-    )
+class StringProvider @Inject constructor(private val context: Context) {
+    fun getUserInfoFormatted(hasCompany: Boolean, info: String): String {
+        return if (hasCompany) info else context.getString(R.string.label_joined_on, info)
+    }
 }

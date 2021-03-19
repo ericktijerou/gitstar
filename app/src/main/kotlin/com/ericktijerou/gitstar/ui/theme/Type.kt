@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.sp
 import com.ericktijerou.gitstar.R
 
 private val fonts = FontFamily(
-    Font(R.font.lato_regular, FontWeight.Normal),
-    Font(R.font.lato_medium, FontWeight.W500),
+    Font(R.font.lato_light, FontWeight.Light),
+    Font(R.font.lato_regular, FontWeight.Medium),
     Font(R.font.lato_bold, FontWeight.Bold)
 )
 
@@ -46,35 +46,34 @@ val typography = typographyFromDefaults(
     h4 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.Bold,
-        lineHeight = 40.sp
     ),
     h5 = TextStyle(
         fontFamily = fonts,
-        fontWeight = FontWeight.W500
+        fontWeight = FontWeight.Medium
     ),
     h6 = TextStyle(
         fontFamily = fonts,
-        fontWeight = FontWeight.W500,
-        lineHeight = 28.sp
+        fontWeight = FontWeight.Medium,
     ),
     subtitle1 = TextStyle(
         fontFamily = fonts,
-        fontWeight = FontWeight.W500,
-        lineHeight = 22.sp
+        fontWeight = FontWeight.Medium,
     ),
     subtitle2 = TextStyle(
         fontFamily = fonts,
-        fontWeight = FontWeight.W500
+        fontWeight = FontWeight.Medium
     ),
     body1 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.Normal,
-        lineHeight = 28.sp
+        fontSize = 14.sp,
+        letterSpacing = 0.sp
     ),
     body2 = TextStyle(
         fontFamily = fonts,
         fontWeight = FontWeight.Normal,
-        lineHeight = 16.sp
+        fontSize = 12.sp,
+        letterSpacing = 0.sp
     ),
     button = TextStyle(
         fontFamily = fonts,

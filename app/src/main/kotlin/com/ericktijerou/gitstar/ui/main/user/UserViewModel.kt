@@ -23,6 +23,7 @@ import androidx.paging.map
 import com.ericktijerou.gitstar.domain.usecase.GetUserListUseCase
 import com.ericktijerou.gitstar.ui.entity.UserView
 import com.ericktijerou.gitstar.ui.entity.toView
+import com.ericktijerou.gitstar.ui.util.StringProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -30,12 +31,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserViewModel @Inject constructor(
-    private val getUserListUseCase: GetUserListUseCase
+    private val getUserListUseCase: GetUserListUseCase,
+    private val stringProvider: StringProvider
 ) : ViewModel() {
 
     val userList: Flow<PagingData<UserView>> by lazy {
         getUserListUseCase.invoke("followers:>100 sort:followers-desc").map { pagingData ->
-            pagingData.map { it.toView() }
+            pagingData.map { it.toView(stringProvider) }
         }.cachedIn(viewModelScope)
     }
 }

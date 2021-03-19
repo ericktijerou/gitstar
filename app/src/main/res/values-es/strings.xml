@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gitstar</string>
+    <string name="home_home">Home</string>
+    <string name="home_search">Buscar</string>
+    <string name="label_user">User</string>
+    <string name="label_repo">Repo</string>
+    <string name="label_joined_on">Se unió el %s</string>
+</resources>

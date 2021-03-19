@@ -19,19 +19,21 @@ import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.domain.entity.Repo
 import com.ericktijerou.gitstar.domain.entity.User
+import com.ericktijerou.gitstar.ui.util.StringProvider
 import com.ericktijerou.gitstar.ui.util.toJoinedDate
 import com.ericktijerou.gitstar.ui.util.toRelativeTime
 import java.util.Locale
 
-fun User.toView(): UserView {
+fun User.toView(stringProvider: StringProvider): UserView {
     val hasCompany = company.isNotEmpty()
+    val info = if (hasCompany) company else createdAt.toJoinedDate()
     return UserView(
         name = name,
         username = username,
         avatarUrl = avatarUrl,
         bio = bio,
         hasCompany = hasCompany,
-        info = if (hasCompany) company else createdAt.toJoinedDate(),
+        info = stringProvider.getUserInfoFormatted(hasCompany, info),
         infoIcon = if (hasCompany) R.drawable.ic_org else R.drawable.ic_clock,
         url = url,
         followersCount = followersCount.toString(),
