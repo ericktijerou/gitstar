@@ -6,4 +6,6 @@
     <string name="label_user">User</string>
     <string name="label_repo">Repo</string>
     <string name="label_joined_on">Se unió el %s</string>
+    <string name="label_indicator">Indicador</string>
+    <string name="label_share">Compartir</string>
 </resources>
