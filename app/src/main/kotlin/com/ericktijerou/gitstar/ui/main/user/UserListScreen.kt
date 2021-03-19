@@ -227,7 +227,8 @@ fun UserFooter(user: UserView, modifier: Modifier = Modifier) {
             label = stringResource(id = R.string.label_share),
             tint = GitstarTheme.customColors.textSecondaryColor,
             modifier = Modifier
-                .fillMaxHeight()
+                .weight(1f)
+                .fillMaxSize()
                 .clickable {
 
                 }
