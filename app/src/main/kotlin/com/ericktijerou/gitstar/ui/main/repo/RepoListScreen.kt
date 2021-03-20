@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ericktijerou.gitstar.ui.main.user
+package com.ericktijerou.gitstar.ui.main.repo
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,18 +24,14 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -49,7 +45,7 @@ import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.ui.component.Indicator
 import com.ericktijerou.gitstar.ui.component.LanguageIndicator
 import com.ericktijerou.gitstar.ui.component.TextIndicator
-import com.ericktijerou.gitstar.ui.entity.UserView
+import com.ericktijerou.gitstar.ui.entity.RepoView
 import com.ericktijerou.gitstar.ui.theme.GitstarTheme
 import com.ericktijerou.gitstar.ui.util.MockDataHelper
 import com.ericktijerou.gitstar.ui.util.ThemedPreview
@@ -57,17 +53,17 @@ import com.ericktijerou.gitstar.ui.util.hiltViewModel
 import dev.chrisbanes.accompanist.coil.CoilImage
 
 @Composable
-fun UserListScreen(modifier: Modifier = Modifier) {
-    val viewModel: UserViewModel by hiltViewModel()
-    val lazyUserItems = viewModel.userList.collectAsLazyPagingItems()
-    LazyColumn(modifier = modifier.fillMaxSize()) {
-        itemsIndexed(lazyUserItems) { index, user ->
-            user?.let { UserItem(user = user, index + 1) }
+fun RepoListScreen(modifier: Modifier = Modifier) {
+    val viewModel: RepoViewModel by hiltViewModel()
+    val lazyRepoItems = viewModel.repoList.collectAsLazyPagingItems()
+    LazyColumn(modifier = modifier) {
+        itemsIndexed(lazyRepoItems) { index, repo ->
+            repo?.let { RepoItem(repo = repo, index + 1) }
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
         }
-        lazyUserItems.apply {
+        lazyRepoItems.apply {
             when {
                 loadState.refresh is LoadState.Loading -> {
                     // item { LoadingView(modifier = Modifier.fillParentMaxSize()) }
@@ -100,32 +96,36 @@ fun UserListScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun UserItem(user: UserView, position: Int) {
+fun RepoItem(repo: RepoView, position: Int) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 8.dp),
-        shape = RoundedCornerShape(0)
+            .padding(top = 8.dp), shape = RoundedCornerShape(0)
     ) {
         Column(modifier = Modifier.padding(top = 16.dp)) {
-            UserHeader(
-                user = user,
-                modifier = Modifier.padding(horizontal = 16.dp),
+            RepoHeader(
+                repo = repo,
+                modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
                 position = position
             )
-            if (user.bio.isNotEmpty()) {
+            if (repo.description.isNotEmpty()) {
                 Text(
-                    text = user.bio,
+                    text = repo.description,
                     maxLines = 3,
                     style = GitstarTheme.typography.body1,
-                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 8.dp),
+                    modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 8.dp),
                     overflow = TextOverflow.Ellipsis
                 )
             }
-            UserFooter(
-                user = user, modifier = Modifier
+            CoilImage(
+                data = repo.socialImage,
+                contentDescription = stringResource(R.string.label_social_image),
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier.fillMaxWidth()
+            )
+            RepoFooter(
+                repo = repo, modifier = Modifier
                     .height(40.dp)
-                    .padding(top = 8.dp)
                     .fillMaxWidth()
             )
         }
@@ -133,81 +133,17 @@ fun UserItem(user: UserView, position: Int) {
 }
 
 @Composable
-fun UserHeader(user: UserView, modifier: Modifier, position: Int) {
-    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
-        CoilImage(
-            data = user.avatarUrl,
-            contentDescription = stringResource(id = R.string.label_user),
-            modifier = Modifier
-                .size(56.dp)
-                .clip(CircleShape)
-        )
-        UserHeaderInfo(
-            user = user,
-            modifier = Modifier
-                .weight(1f)
-                .height(56.dp)
-                .padding(horizontal = 8.dp)
-        )
-        Text(
-            text = "#$position",
-            maxLines = 1,
-            style = GitstarTheme.typography.body2
-        )
-    }
-}
-
-@Composable
-fun UserHeaderInfo(user: UserView, modifier: Modifier) {
-    Column(modifier = modifier) {
-        Text(
-            modifier = Modifier.weight(1f),
-            text = user.name,
-            maxLines = 1,
-            style = GitstarTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
-            overflow = TextOverflow.Ellipsis
-        )
-        Text(
-            modifier = Modifier.weight(1f),
-            text = user.username,
-            maxLines = 1,
-            style = GitstarTheme.typography.body1,
-            overflow = TextOverflow.Ellipsis,
-            color = GitstarTheme.customColors.textSecondaryColor
-        )
-        Row(
-            modifier = Modifier.weight(1f),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = user.infoIcon),
-                contentDescription = "Info icon",
-                tint = GitstarTheme.customColors.textSecondaryColor
-            )
-            Text(
-                modifier = Modifier.padding(start = 4.dp),
-                text = user.info,
-                maxLines = 1,
-                style = GitstarTheme.typography.body2,
-                overflow = TextOverflow.Ellipsis,
-                color = GitstarTheme.customColors.textSecondaryColor
-            )
-        }
-    }
-}
-
-@Composable
-fun UserFooter(user: UserView, modifier: Modifier = Modifier) {
+fun RepoFooter(repo: RepoView, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         val color =
-            if (user.colorLanguage.isNotEmpty()) Color(android.graphics.Color.parseColor(user.colorLanguage)) else GitstarTheme.customColors.textSecondaryColor
+            if (repo.colorLanguage.isNotEmpty()) Color(android.graphics.Color.parseColor(repo.colorLanguage)) else GitstarTheme.customColors.textSecondaryColor
         val indicators = listOf(
-            Indicator(icon = R.drawable.ic_people, label = user.followersCount),
-            Indicator(icon = R.drawable.ic_star, label = user.stargazerCount),
+            Indicator(icon = R.drawable.ic_star, label = repo.stargazerCount),
+            Indicator(icon = R.drawable.ic_fork, label = repo.forkCount),
         )
         LanguageIndicator(
             color = color,
-            label = user.primaryLanguage,
+            label = repo.primaryLanguage,
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 8.dp)
@@ -240,20 +176,49 @@ fun UserFooter(user: UserView, modifier: Modifier = Modifier) {
     }
 }
 
-
-@Preview("User item screen")
 @Composable
-fun PreviewUserItem() {
+fun RepoHeader(repo: RepoView, position: Int, modifier: Modifier) {
+    Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = modifier) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(end = 8.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.label_repo_title, repo.owner, repo.name),
+                maxLines = 1,
+                style = GitstarTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
+                overflow = TextOverflow.Ellipsis
+            )
+            Text(
+                text = stringResource(id = R.string.label_updated, repo.updatedAt),
+                maxLines = 1,
+                style = GitstarTheme.typography.body2,
+                overflow = TextOverflow.Ellipsis,
+                color = GitstarTheme.customColors.textSecondaryColor,
+                modifier = Modifier.padding(top = 4.dp)
+            )
+        }
+        Text(
+            text = "#$position",
+            maxLines = 1,
+            style = GitstarTheme.typography.body2
+        )
+    }
+}
+
+@Preview("Repo item screen")
+@Composable
+fun PreviewRepoItem() {
     ThemedPreview {
-        UserItem(MockDataHelper.user, 1)
+        RepoItem(MockDataHelper.repo, 1)
     }
 }
 
-@Preview("User item screen dark")
+@Preview("Repo item screen dark")
 @Composable
-fun PreviewUserItemDark() {
+fun PreviewRepoItemDark() {
     ThemedPreview(darkTheme = true) {
-        UserItem(MockDataHelper.user, 1)
+        RepoItem(MockDataHelper.repo, 1)
     }
 }
-

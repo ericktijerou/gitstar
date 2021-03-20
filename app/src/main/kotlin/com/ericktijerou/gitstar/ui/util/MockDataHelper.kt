@@ -16,6 +16,7 @@
 package com.ericktijerou.gitstar.ui.util
 
 import com.ericktijerou.gitstar.R
+import com.ericktijerou.gitstar.ui.entity.RepoView
 import com.ericktijerou.gitstar.ui.entity.UserView
 
 object MockDataHelper {
@@ -33,6 +34,21 @@ object MockDataHelper {
             stargazerCount = "12",
             primaryLanguage = "Kotlin",
             colorLanguage = " #000000"
+        )
+    }
+
+    val repo by lazy {
+        RepoView(
+            id = "id",
+            name = "name",
+            description = "description",
+            forkCount = "forkCount",
+            stargazerCount = "stargazerCount",
+            owner = "owner",
+            primaryLanguage = "primaryLanguage",
+            colorLanguage = "colorLanguage",
+            socialImage = "socialImage",
+            updatedAt = "updatedAt"
         )
     }
 }

@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import com.ericktijerou.gitstar.R
 import com.ericktijerou.gitstar.core.EMPTY
 import com.ericktijerou.gitstar.ui.component.GitstarScaffold
-import com.ericktijerou.gitstar.ui.main.repo.RepoScreen
+import com.ericktijerou.gitstar.ui.main.repo.RepoListScreen
 import com.ericktijerou.gitstar.ui.main.user.UserListScreen
 import com.ericktijerou.gitstar.ui.util.Pager
 import com.ericktijerou.gitstar.ui.util.PagerState
@@ -81,7 +81,7 @@ fun HomeViewPager(
     ) {
         when (items[page]) {
             is MainSection.User -> UserListScreen()
-            is MainSection.Repo -> RepoScreen()
+            is MainSection.Repo -> RepoListScreen()
         }
     }
 }

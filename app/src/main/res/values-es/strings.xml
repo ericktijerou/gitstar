@@ -8,4 +8,7 @@
     <string name="label_joined_on">Se unió el %s</string>
     <string name="label_indicator">Indicador</string>
     <string name="label_share">Compartir</string>
+    <string name="label_repo_title">%1$s / %2$s</string>
+    <string name="label_updated">Actualizado %s</string>
+    <string name="label_social_image">Imagen Social</string>
 </resources>
