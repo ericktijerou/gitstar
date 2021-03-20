@@ -62,7 +62,13 @@ fun UserListScreen(modifier: Modifier = Modifier) {
     val lazyUserItems = viewModel.userList.collectAsLazyPagingItems()
     LazyColumn(modifier = modifier.fillMaxSize()) {
         itemsIndexed(lazyUserItems) { index, user ->
-            user?.let { UserItem(user = user, index + 1) }
+            user?.let {
+                UserItem(
+                    user = user,
+                    position = index + 1,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
@@ -100,11 +106,9 @@ fun UserListScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun UserItem(user: UserView, position: Int) {
+fun UserItem(user: UserView, position: Int, modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp),
+        modifier = modifier.fillMaxWidth(),
         shape = RoundedCornerShape(0)
     ) {
         Column(modifier = Modifier.padding(top = 16.dp)) {

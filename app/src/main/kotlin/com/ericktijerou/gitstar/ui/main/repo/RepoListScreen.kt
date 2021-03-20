@@ -58,7 +58,13 @@ fun RepoListScreen(modifier: Modifier = Modifier) {
     val lazyRepoItems = viewModel.repoList.collectAsLazyPagingItems()
     LazyColumn(modifier = modifier) {
         itemsIndexed(lazyRepoItems) { index, repo ->
-            repo?.let { RepoItem(repo = repo, index + 1) }
+            repo?.let {
+                RepoItem(
+                    repo = repo,
+                    position = index + 1,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
@@ -96,12 +102,8 @@ fun RepoListScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun RepoItem(repo: RepoView, position: Int) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp), shape = RoundedCornerShape(0)
-    ) {
+fun RepoItem(repo: RepoView, position: Int, modifier: Modifier = Modifier) {
+    Card(modifier = modifier.fillMaxWidth(), shape = RoundedCornerShape(0)) {
         Column(modifier = Modifier.padding(top = 16.dp)) {
             RepoHeader(
                 repo = repo,
